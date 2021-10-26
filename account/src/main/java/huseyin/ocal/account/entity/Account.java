@@ -16,6 +16,10 @@ import javax.persistence.*;
 @Data
 public class Account {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int accountNumber;
+
     private Long customerId;
 
     @CreationTimestamp
@@ -24,10 +28,6 @@ public class Account {
 
     @CreationTimestamp
     private Instant updatedDate;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long accountNumber;
 
     private String type;
 
