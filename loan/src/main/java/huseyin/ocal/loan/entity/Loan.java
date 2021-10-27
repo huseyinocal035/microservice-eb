@@ -1,4 +1,4 @@
-package huseyin.ocal.account.entity;
+package huseyin.ocal.loan.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,11 +14,11 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @Data
-public class Account {
+public class Loan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int accountNumber;
+    private int loanNumber;
 
     private int customerId;
 
@@ -31,6 +31,13 @@ public class Account {
 
     private String type;
 
-    private String branchAddress;
+    private int totalLoan;
+
+    private int amountPaid;
+
+    private int outstandingAmount;
+
+    @CreationTimestamp
+    private Instant startedDate;
 
 }
