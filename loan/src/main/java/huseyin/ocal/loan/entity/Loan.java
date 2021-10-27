@@ -20,7 +20,7 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int loanNumber;
 
-    private Long customerId;
+    private int customerId;
 
     @CreationTimestamp
     @Column(updatable = false)

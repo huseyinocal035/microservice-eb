@@ -20,7 +20,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int accountNumber;
 
-    private Long customerId;
+    private int customerId;
 
     @CreationTimestamp
     @Column(updatable = false)
