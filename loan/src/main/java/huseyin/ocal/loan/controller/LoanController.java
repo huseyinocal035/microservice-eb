@@ -1,6 +1,6 @@
 package huseyin.ocal.loan.controller;
 
-import huseyin.ocal.account.entity.Customer;
+import huseyin.ocal.loan.dto.Customer;
 import huseyin.ocal.loan.entity.Loan;
 import huseyin.ocal.loan.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
