@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+
+  account:
+    image: huseyinocal/account:latest
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    networks:
+      - huseyinocal-network
+
+  loan:
+    image: huseyinocal/loan:latest
+    mem_limit: 700m
+    ports:
+      - "8090:8090"
+    networks:
+      - huseyinocal-network
+
+  card:
+    image: huseyinocal/card:latest
+    mem_limit: 700m
+    ports:
+      - "9000:9000"
+    networks:
+      - huseyinocal-network
+
+networks:
+  huseyinocal-network:
