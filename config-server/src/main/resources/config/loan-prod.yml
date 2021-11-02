@@ -1,0 +1,12 @@
+loan:
+  msg: Welcome to the Huseyin Öcal Loan Prod application
+  build-version: 1
+  mailDetails:
+    hostName: prod-loan@gmail.com
+  port: 9011
+  from: prod-loan@ho.com
+  subject: Your Loan Details from Huseyin Öcal Bank Prod Environment
+
+  activeBranches[0]: İstanbul
+  activeBranches[1]: Ankara
+  activeBranches[2]: İzmir

@@ -1,0 +1,12 @@
+card:
+  msg: Welcome to the Huseyin Öcal Card Dev application
+  build-version: 2
+  mailDetails:
+    hostName: dev-card@gmail.com
+  port: 9022
+  from: dev-card@ho.com
+  subject: Your Card Details from Huseyin Öcal Bank Dev Environment
+
+  activeBranches[0]: Sivas
+  activeBranches[1]: Erzurum
+  activeBranches[2]: Konya

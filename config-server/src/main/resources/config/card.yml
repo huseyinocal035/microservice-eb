@@ -1,0 +1,12 @@
+card:
+  msg: Welcome to the Huseyin Öcal Card Default application
+  build-version: 3
+  mailDetails:
+    hostName: default-card@gmail.com
+  port: 9002
+  from: default-card@ho.com
+  subject: Your Card Details from Huseyin Öcal Bank Default Environment
+
+  activeBranches[0]: İstanbul
+  activeBranches[1]: Ankara
+  activeBranches[2]: İzmir

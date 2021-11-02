@@ -1,0 +1,12 @@
+account:
+  msg: Welcome to the Huseyin Öcal Account Prod application
+  build-version: 1
+  mailDetails:
+    hostName: prod-account@gmail.com
+  port: 9010
+  from: prod-account@ho.com
+  subject: Your Account Details from Huseyin Öcal Bank Prod Environment
+
+  activeBranches[0]: Niğde
+  activeBranches[1]: Van
+  activeBranches[2]: Iğdır

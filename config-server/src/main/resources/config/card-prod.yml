@@ -1,0 +1,12 @@
+card:
+  msg: Welcome to the Huseyin Öcal Card Prod application
+  build-version: 1
+  mailDetails:
+    hostName: prod-card@gmail.com
+  port: 9012
+  from: prod-card@ho.com
+  subject: Your Card Details from Huseyin Öcal Bank Prod Environment
+
+  activeBranches[0]: Niğde
+  activeBranches[1]: Van
+  activeBranches[2]: Iğdır

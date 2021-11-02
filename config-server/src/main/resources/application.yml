@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: configserver
+
+  profiles:
+    active: git
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/huseyinocal035/microservice-eb-config.git
+          clone-on-start: true
+          default-label: master
+#        native:
+          # to get configuration from classpath
+#          search-locations: classpath:/config
+          # to get configuration from file system
+#          search-locations: file:///C://config
+
+server:
+  port: 8071
+
+#encrypt:
+#  key: huseyinocal
