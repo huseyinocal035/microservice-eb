@@ -1,0 +1,12 @@
+account:
+  msg: Welcome to the Huseyin Öcal Account Dev application
+  build-version: 2
+  mailDetails:
+    hostName: dev-account@gmail.com
+  port: 9020
+  from: dev-account@ho.com
+  subject: Your Account Details from Huseyin Öcal Bank Dev Environment
+
+  activeBranches[0]: Sivas
+  activeBranches[1]: Erzurum
+  activeBranches[2]: Konya

@@ -1,0 +1,12 @@
+account:
+  msg: Welcome to the Huseyin Öcal Account Default application
+  build-version: 3
+  mailDetails:
+    hostName: default-account@gmail.com
+  port: 9000
+  from: default-account@ho.com
+  subject: Your Account Details from Huseyin Öcal Bank Default Environment
+
+  activeBranches[0]: İstanbul
+  activeBranches[1]: Ankara
+  activeBranches[2]: İzmir

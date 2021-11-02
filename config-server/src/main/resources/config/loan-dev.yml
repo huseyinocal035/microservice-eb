@@ -1,0 +1,12 @@
+loan:
+  msg: Welcome to the Huseyin Öcal Loan Dev application
+  build-version: 2
+  mailDetails:
+    hostName: dev-loan@gmail.com
+  port: 9021
+  from: dev-loan@ho.com
+  subject: Your Loan Details from Huseyin Öcal Bank Dev Environment
+
+  activeBranches[0]: Sivas
+  activeBranches[1]: Erzurum
+  activeBranches[2]: Konya

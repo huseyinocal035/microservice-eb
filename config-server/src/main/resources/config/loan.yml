@@ -1,0 +1,12 @@
+loan:
+  msg: Welcome to the Huseyin Öcal Loan Default application
+  build-version: 3
+  mailDetails:
+    hostName: default-loan@gmail.com
+  port: 9001
+  from: default-loan@ho.com
+  subject: Your Loan Details from Huseyin Öcal Bank Default Environment
+
+  activeBranches[0]: İstanbul
+  activeBranches[1]: Ankara
+  activeBranches[2]: İzmir
