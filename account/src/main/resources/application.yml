@@ -1,8 +1,15 @@
 spring:
+  application:
+    name: account
+
   datasource:
     url: jdbc:h2:mem:accountdb
     username: sa
     password:
+
+  profiles:
+    active: prod
+
   h2:
     console:
       enabled: true
@@ -12,6 +19,9 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
+
+  config:
+    import: optional:configserver:http://localhost:8071
 
 server:
   port: 8080
