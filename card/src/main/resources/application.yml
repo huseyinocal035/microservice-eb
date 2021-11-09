@@ -28,7 +28,29 @@ server:
   port: 9000
 
 management:
+  endpoint:
+    shutdown:
+      enabled: true
   endpoints:
     web:
       exposure:
         include: "*"
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8070/eureka/
+
+info:
+  app:
+    name: Card Microservice
+    description: Huseyin Öcal Card Application
+    version: 1.0.0
+
+endpoints:
+  shutdown:
+    enabled: true
