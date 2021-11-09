@@ -10,6 +10,7 @@ import huseyin.ocal.loan.entity.Loan;
 import huseyin.ocal.loan.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class LoanController {
 
     private final LoanServiceConfig loanServiceConfig;
 
-    @GetMapping
+    @PostMapping("/loan")
     public List<Loan> getLoanDetails(@RequestBody Customer customer) {
         return loanRepository.findByCustomerIdOrderByStartedDateDesc(customer.getId());
      }
