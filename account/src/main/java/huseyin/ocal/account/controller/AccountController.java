@@ -13,6 +13,7 @@ import huseyin.ocal.account.repository.AccountRepository;
 import huseyin.ocal.account.service.client.CardFeignClient;
 import huseyin.ocal.account.service.client.LoanFeignClient;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,5 +74,15 @@ public class AccountController {
         customerDetails.setLoans(loans);
 
         return customerDetails;
+    }
+
+    @GetMapping("/sayHello")
+    @RateLimiter(name = "sayHello", fallbackMethod = "sayHelloFallback")
+    public String sayHello() {
+        return "Hello, Welcome to Huseyin Ocal Bank";
+    }
+
+    private String sayHelloFallback(Throwable throwable) {
+        return "Hi, Welcome to Huseyin Ocal Bank with fallback";
     }
 }
