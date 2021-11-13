@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Customer {
 
-    private int customerId;
+    private int id;
 }

@@ -2,7 +2,6 @@ package huseyin.ocal.account.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import huseyin.ocal.account.configuration.AccountServiceConfig;
 import huseyin.ocal.account.configuration.Properties;
 import huseyin.ocal.account.dto.Card;
@@ -13,6 +12,9 @@ import huseyin.ocal.account.entity.Customer;
 import huseyin.ocal.account.repository.AccountRepository;
 import huseyin.ocal.account.service.client.CardFeignClient;
 import huseyin.ocal.account.service.client.LoanFeignClient;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,24 +43,46 @@ public class AccountController {
 
     @GetMapping("/account/properties")
     public String getPropertyDetails() throws JsonProcessingException {
-        ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        Properties properties = new Properties(accountServiceConfig.getMsg(), accountServiceConfig.getBuildVersion(),
+        var objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        var properties = new Properties(accountServiceConfig.getMsg(), accountServiceConfig.getBuildVersion(),
             accountServiceConfig.getMailDetails(), accountServiceConfig.getActiveBranches());
         return objectWriter.writeValueAsString(properties);
     }
 
     @PostMapping("/customerDetails")
-    public CustomerDetails myCustomerDetails(@RequestBody Customer customer) {
-        Account account = accountRepository.findByCustomerId(customer.getId());
+//    @CircuitBreaker(name = "detailsForCustomerSupportApp", fallbackMethod = "getCustomerDetailsFallBack")
+    @Retry(name = "retryForCustomerDetails", fallbackMethod = "getCustomerDetailsFallBack")
+    public CustomerDetails getCustomerDetails(@RequestBody Customer customer) {
+        var account = accountRepository.findByCustomerId(customer.getId());
         List<Loan> loans = loanFeignClient.getLoanDetails(customer);
         List<Card> cards = cardFeignClient.getCardDetails(customer);
 
-        CustomerDetails customerDetails = new CustomerDetails();
+        var customerDetails = new CustomerDetails();
         customerDetails.setAccount(account);
         customerDetails.setLoans(loans);
         customerDetails.setCards(cards);
 
         return customerDetails;
+    }
 
+    private CustomerDetails getCustomerDetailsFallBack(Customer customer, Throwable throwable) {
+        var account = accountRepository.findByCustomerId(customer.getId());
+        List<Loan> loans = loanFeignClient.getLoanDetails(customer);
+
+        var customerDetails = new CustomerDetails();
+        customerDetails.setAccount(account);
+        customerDetails.setLoans(loans);
+
+        return customerDetails;
+    }
+
+    @GetMapping("/sayHello")
+    @RateLimiter(name = "sayHello", fallbackMethod = "sayHelloFallback")
+    public String sayHello() {
+        return "Hello, Welcome to Huseyin Ocal Bank";
+    }
+
+    private String sayHelloFallback(Throwable throwable) {
+        return "Hi, Welcome to Huseyin Ocal Bank with fallback";
     }
 }
