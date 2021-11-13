@@ -5,6 +5,7 @@ import huseyin.ocal.account.entity.Customer;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ import java.util.List;
 public interface CardFeignClient {
 
     @PostMapping(value = "card", consumes = "application/json")
-    List<Card> getCardDetails(@RequestBody Customer customer);
+    List<Card> getCardDetails(@RequestHeader("huseyinocal-correlation-id") String correlationId, @RequestBody Customer customer);
 }

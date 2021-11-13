@@ -26,7 +26,7 @@ public class CardController {
 
     @PostMapping("/card")
     public List<Card> getCardDetails(@RequestBody Customer customer) {
-        return cardsRepository.findByCustomerId(customer.getCustomerId());
+        return cardsRepository.findByCustomerId(customer.getId());
     }
 
     @GetMapping("/card/properties")
