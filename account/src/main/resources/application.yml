@@ -67,3 +67,12 @@ resilience4j:
         waitDurationInOpenState: 30000
         permittedNumberOfCallsInHalfOpenState: 2
 
+  retry:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      retryForCustomerDetails:
+        maxRetryAttempts: 3
+        waitDuration: 2000
+

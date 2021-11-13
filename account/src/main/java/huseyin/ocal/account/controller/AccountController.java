@@ -13,6 +13,7 @@ import huseyin.ocal.account.repository.AccountRepository;
 import huseyin.ocal.account.service.client.CardFeignClient;
 import huseyin.ocal.account.service.client.LoanFeignClient;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +49,8 @@ public class AccountController {
     }
 
     @PostMapping("/customerDetails")
-    @CircuitBreaker(name = "detailsForCustomerSupportApp", fallbackMethod = "getCustomerDetailsFallBack")
+//    @CircuitBreaker(name = "detailsForCustomerSupportApp", fallbackMethod = "getCustomerDetailsFallBack")
+    @Retry(name = "retryForCustomerDetails", fallbackMethod = "getCustomerDetailsFallBack")
     public CustomerDetails getCustomerDetails(@RequestBody Customer customer) {
         var account = accountRepository.findByCustomerId(customer.getId());
         List<Loan> loans = loanFeignClient.getLoanDetails(customer);
