@@ -9,6 +9,7 @@ import huseyin.ocal.loan.dto.Customer;
 import huseyin.ocal.loan.entity.Loan;
 import huseyin.ocal.loan.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class LoanController {
@@ -26,7 +28,10 @@ public class LoanController {
 
     @PostMapping("/loan")
     public List<Loan> getLoanDetails(@RequestBody Customer customer) {
-        return loanRepository.findByCustomerIdOrderByStartedDateDesc(customer.getId());
+        log.info("*** Start of getLoanDetails() method ***");
+        List<Loan> loans = loanRepository.findByCustomerIdOrderByStartedDateDesc(customer.getId());
+        log.info("*** End of getLoanDetails() method ***");
+        return loans;
      }
 
     @GetMapping("/loan/properties")

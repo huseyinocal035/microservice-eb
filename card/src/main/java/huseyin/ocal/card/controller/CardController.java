@@ -9,6 +9,7 @@ import huseyin.ocal.card.dto.Customer;
 import huseyin.ocal.card.entity.Card;
 import huseyin.ocal.card.repository.CardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class CardController {
@@ -26,7 +28,10 @@ public class CardController {
 
     @PostMapping("/card")
     public List<Card> getCardDetails(@RequestBody Customer customer) {
-        return cardsRepository.findByCustomerId(customer.getId());
+        log.info("*** Start of getCardDetails() method ***");
+        List<Card> cards = cardsRepository.findByCustomerId(customer.getId());
+        log.info("*** End of getCardDetails() method ***");
+        return cards;
     }
 
     @GetMapping("/card/properties")
