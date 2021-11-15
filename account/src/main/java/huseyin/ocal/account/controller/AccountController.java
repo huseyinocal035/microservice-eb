@@ -16,10 +16,12 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class AccountController {
@@ -49,22 +51,24 @@ public class AccountController {
     @PostMapping("/customerDetails")
     @CircuitBreaker(name = "detailsForCustomerSupportApp", fallbackMethod = "getCustomerDetailsFallBack")
     @Retry(name = "retryForCustomerDetails", fallbackMethod = "getCustomerDetailsFallBack")
-    public CustomerDetails getCustomerDetails(@RequestHeader("huseyinocal-correlation-id") String correlationId, @RequestBody Customer customer) {
+    public CustomerDetails getCustomerDetails(@RequestBody Customer customer) {
+        log.info("*** Start of getCustomerDetails() method ***");
         var account = accountRepository.findByCustomerId(customer.getId());
-        List<Loan> loans = loanFeignClient.getLoanDetails(correlationId, customer);
-        List<Card> cards = cardFeignClient.getCardDetails(correlationId, customer);
+        List<Loan> loans = loanFeignClient.getLoanDetails(customer);
+        List<Card> cards = cardFeignClient.getCardDetails(customer);
 
         var customerDetails = new CustomerDetails();
         customerDetails.setAccount(account);
         customerDetails.setLoans(loans);
         customerDetails.setCards(cards);
 
+        log.info("*** End of getCustomerDetails() method ***");
         return customerDetails;
     }
 
-    private CustomerDetails getCustomerDetailsFallBack(@RequestHeader("huseyinocal-correlation-id") String correlationId, Customer customer, Throwable throwable) {
+    private CustomerDetails getCustomerDetailsFallBack(Customer customer, Throwable throwable) {
         var account = accountRepository.findByCustomerId(customer.getId());
-        List<Loan> loans = loanFeignClient.getLoanDetails(correlationId, customer);
+        List<Loan> loans = loanFeignClient.getLoanDetails(customer);
 
         var customerDetails = new CustomerDetails();
         customerDetails.setAccount(account);
