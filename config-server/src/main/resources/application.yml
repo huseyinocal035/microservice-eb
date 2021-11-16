@@ -18,6 +18,12 @@ spring:
           # to get configuration from file system
 #          search-locations: file:///C://config
 
+  sleuth:
+    sampler:
+      probability: 0.1
+  zipkin:
+    baseUrl: http://localhost:9411/
+
 server:
   port: 8071
 
