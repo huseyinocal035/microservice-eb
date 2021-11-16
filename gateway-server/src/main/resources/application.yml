@@ -9,6 +9,11 @@ spring:
         locator:
           enabled: true
           lowerCaseServiceId: true
+  sleuth:
+    sampler:
+      probability: 0.1
+  zipkin:
+    baseUrl: http://localhost:9411/
 
 management:
   endpoints:
